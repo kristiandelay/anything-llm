@@ -65,6 +65,9 @@ const LiveDocumentSyncManage = lazy(
 );
 const FineTuningWalkthrough = lazy(() => import("@/pages/FineTuning"));
 
+const BASE = import.meta.env.VITE_APP_BASE || "";
+console.log("Base MFER: ", BASE);
+
 export default function App() {
   return (
     <Suspense fallback={<FullScreenLoader />}>
@@ -73,123 +76,136 @@ export default function App() {
           <PfpProvider>
             <I18nextProvider i18n={i18n}>
               <Routes>
-                <Route path="/" element={<PrivateRoute Component={Main} />} />
-                <Route path="/login" element={<Login />} />
                 <Route
-                  path="/workspace/:slug/settings/:tab"
+                  path={`${BASE}/`}
+                  element={<PrivateRoute Component={Main} />}
+                />
+                <Route path={`${BASE}/login`} element={<Login />} />
+                <Route
+                  path={`${BASE}/workspace/:slug/settings/:tab`}
                   element={<ManagerRoute Component={WorkspaceSettings} />}
                 />
                 <Route
-                  path="/workspace/:slug"
+                  path={`${BASE}/workspace/:slug`}
                   element={<PrivateRoute Component={WorkspaceChat} />}
                 />
                 <Route
-                  path="/workspace/:slug/t/:threadSlug"
+                  path={`${BASE}/workspace/:slug/t/:threadSlug`}
                   element={<PrivateRoute Component={WorkspaceChat} />}
                 />
-                <Route path="/accept-invite/:code" element={<InvitePage />} />
+                <Route
+                  path={`${BASE}/accept-invite/:code`}
+                  element={<InvitePage />}
+                />
 
                 {/* Admin */}
                 <Route
-                  path="/settings/llm-preference"
+                  path={`${BASE}/settings/llm-preference`}
                   element={<AdminRoute Component={GeneralLLMPreference} />}
                 />
                 <Route
-                  path="/settings/transcription-preference"
+                  path={`${BASE}/settings/transcription-preference`}
                   element={
                     <AdminRoute Component={GeneralTranscriptionPreference} />
                   }
                 />
                 <Route
-                  path="/settings/audio-preference"
+                  path={`${BASE}/settings/audio-preference`}
                   element={<AdminRoute Component={GeneralAudioPreference} />}
                 />
                 <Route
-                  path="/settings/embedding-preference"
+                  path={`${BASE}/settings/embedding-preference`}
                   element={
                     <AdminRoute Component={GeneralEmbeddingPreference} />
                   }
                 />
                 <Route
-                  path="/settings/text-splitter-preference"
+                  path={`${BASE}/settings/text-splitter-preference`}
                   element={
                     <AdminRoute Component={EmbeddingTextSplitterPreference} />
                   }
                 />
                 <Route
-                  path="/settings/vector-database"
+                  path={`${BASE}/settings/vector-database`}
                   element={<AdminRoute Component={GeneralVectorDatabase} />}
                 />
                 <Route
-                  path="/settings/agents"
+                  path={`${BASE}/settings/agents`}
                   element={<AdminRoute Component={AdminAgents} />}
                 />
                 <Route
-                  path="/settings/event-logs"
+                  path={`${BASE}/settings/event-logs`}
                   element={<AdminRoute Component={AdminLogs} />}
                 />
                 <Route
-                  path="/settings/embed-config"
+                  path={`${BASE}/settings/embed-config`}
                   element={<AdminRoute Component={EmbedConfigSetup} />}
                 />
                 <Route
-                  path="/settings/embed-chats"
+                  path={`${BASE}/settings/embed-chats`}
                   element={<AdminRoute Component={EmbedChats} />}
                 />
+
                 {/* Manager */}
                 <Route
-                  path="/settings/security"
+                  path={`${BASE}/settings/security`}
                   element={<ManagerRoute Component={GeneralSecurity} />}
                 />
                 <Route
-                  path="/settings/privacy"
+                  path={`${BASE}/settings/privacy`}
                   element={<AdminRoute Component={PrivacyAndData} />}
                 />
                 <Route
-                  path="/settings/appearance"
+                  path={`${BASE}/settings/appearance`}
                   element={<ManagerRoute Component={GeneralAppearance} />}
                 />
                 <Route
-                  path="/settings/beta-features"
+                  path={`${BASE}/settings/beta-features`}
                   element={<AdminRoute Component={ExperimentalFeatures} />}
                 />
                 <Route
-                  path="/settings/api-keys"
+                  path={`${BASE}/settings/api-keys`}
                   element={<AdminRoute Component={GeneralApiKeys} />}
                 />
                 <Route
-                  path="/settings/workspace-chats"
+                  path={`${BASE}/settings/workspace-chats`}
                   element={<ManagerRoute Component={GeneralChats} />}
                 />
                 <Route
-                  path="/settings/system-preferences"
+                  path={`${BASE}/settings/system-preferences`}
                   element={<ManagerRoute Component={AdminSystem} />}
                 />
                 <Route
-                  path="/settings/invites"
+                  path={`${BASE}/settings/invites`}
                   element={<ManagerRoute Component={AdminInvites} />}
                 />
                 <Route
-                  path="/settings/users"
+                  path={`${BASE}/settings/users`}
                   element={<ManagerRoute Component={AdminUsers} />}
                 />
                 <Route
-                  path="/settings/workspaces"
+                  path={`${BASE}/settings/workspaces`}
                   element={<ManagerRoute Component={AdminWorkspaces} />}
                 />
-                {/* Onboarding Flow */}
-                <Route path="/onboarding" element={<OnboardingFlow />} />
-                <Route path="/onboarding/:step" element={<OnboardingFlow />} />
 
-                {/* Experimental feature pages  */}
-                {/* Live Document Sync feature */}
+                {/* Onboarding Flow */}
                 <Route
-                  path="/settings/beta-features/live-document-sync/manage"
-                  element={<AdminRoute Component={LiveDocumentSyncManage} />}
+                  path={`${BASE}/onboarding`}
+                  element={<OnboardingFlow />}
+                />
+                <Route
+                  path={`${BASE}/onboarding/:step`}
+                  element={<OnboardingFlow />}
                 />
 
+                {/* Experimental feature pages */}
+                {/* Live Document Sync feature */}
                 <Route
-                  path="/fine-tuning"
+                  path={`${BASE}/settings/beta-features/live-document-sync/manage`}
+                  element={<AdminRoute Component={LiveDocumentSyncManage} />}
+                />
+                <Route
+                  path={`${BASE}/fine-tuning`}
                   element={<AdminRoute Component={FineTuningWalkthrough} />}
                 />
               </Routes>
